@@ -1,4 +1,4 @@
-const isPrime = require("../isPrime");
+const isPrime = require("./isPrime");
 isPrime(2);
 isPrime(0);
 isPrime(7);
