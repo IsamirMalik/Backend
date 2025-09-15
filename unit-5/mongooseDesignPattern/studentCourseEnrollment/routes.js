@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-// Create Student
+
 router.post('/students', async (req, res) => {
   const student = new Student(req.body);
   await student.save();
   res.status(201).json(student);
 });
 
-// Create Course
+
 router.post('/courses', async (req, res) => {
   const course = new Course(req.body);
   await course.save();
   res.status(201).json(course);
 });
 
-// Enroll Student (only if both active)
+
 router.post('/enroll', async (req, res) => {
   const { studentId, courseId } = req.body;
   const student = await Student.findOne({ _id: studentId, isActive: true });
@@ -31,7 +31,7 @@ router.post('/enroll', async (req, res) => {
 
 
 
-// Get active courses for a student
+
 router.get('/students/:id/courses', async (req, res) => {
   const enrollments = await Enrollment.find({ studentId: req.params.id, isActive: true })
     .populate({ path: 'courseId', match: { isActive: true } });
@@ -52,14 +52,14 @@ router.get('/courses/:id/students', async (req, res) => {
 });
 
 
-// Soft delete student (cascade enrollments)
+
 router.delete('/students/:id', async (req, res) => {
   await Student.findByIdAndUpdate(req.params.id, { isActive: false });
   await Enrollment.updateMany({ studentId: req.params.id }, { isActive: false });
   res.status(204).send();
 });
 
-// Soft delete course (cascade enrollments)
+
 router.delete('/courses/:id', async (req, res) => {
   await Course.findByIdAndUpdate(req.params.id, { isActive: false });
   await Enrollment.updateMany({ courseId: req.params.id }, { isActive: false });
