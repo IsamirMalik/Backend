@@ -1,10 +1,12 @@
 const express = require('express');
 const { request } = require('http');
 const app = express();
+const path = require('path');
 // const views = require('./views')
 
 const router = require('./controller/routes/restaurent');
 
+app.use(express.static(path.join(__dirname , 'views')));
 app.use('/api/restaurent' , router)
 app.set('view engine' , 'ejs');
 // app.set('views' , views);

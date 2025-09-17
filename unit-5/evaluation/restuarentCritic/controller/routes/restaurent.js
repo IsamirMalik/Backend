@@ -1,27 +1,36 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const fs = require('fs');
+
+let restaurents = [];
+
 
 router.get('/', (req, res) => {
-    console.log(`getting all the restaurents`)
+    // res.send(`getting all the restaurents`)
+    res.sendFile(path.join(__filename , '../../../' , 'views' , 'restaurents.ejs'))
 });
 router.get('/:restaurentId', (req, res) => {
-    console.log(`getting a restaurent with its id`)
+    res.send(`getting a restaurent with its id`)
 });
 
 router.post('/', (req, res) => {
-    console.log(`Adding a new restaurent`)
+    let data = req.body;
+    restaurents.push(data);
+    fstat.writeFileSync('restaurents.json', JSON.stringify(restaurents));
+    res.send(`Adding a new restaurent`)
 });
 
 router.put('/:restaurentId', (req, res) => {
-    console.log(`Updating a restaurent`)
+    res.send(`Updating a restaurent`)
 });
 
 router.post('/:restaurentId/reviews', (req, res) => {
-    console.log(`adding reviews`)
+    res.send(`getting all the reviews for a restaurent using its id`)
 });
 
 router.get('/:restaurentId/reviews', (req, res) => {
-    console.log(`getting all the reviews for a restaurent using its id`)
+    res.send(path.join(__filename , '../../../' , 'views' , 'reviews.ejs'))
 })
 
 module.exports = router;

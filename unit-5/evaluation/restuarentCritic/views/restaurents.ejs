@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurents</title>
+</head>
+<body>
+    <header>
+        <h1>Restaurents</h1>
+    </header>
+
+    <main>
+        <ul>
+            <% restaurents.forEach(restaurent => { %>
+                <li><a href="/api/restaurent/<%= restaurent._id %>"><%= restaurent.name %></a></li>
+            <% }) %>
+        </ul>
+    </main>
+    
+</body>
+</html>
